@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alerta de seguridad</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f3f3f3;
+      font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+      font-size: 14px;
+      color: #333333;
+    }
+
+    .email-wrapper {
+      max-width: 620px;
+      margin: 30px auto;
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+    }
+
+    /* Header */
+    .email-header {
+      background-color: #0078d4;
+      padding: 28px 32px;
+    }
+
+    .email-header h1 {
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    /* Body */
+    .email-body {
+      padding: 28px 32px;
+    }
+
+    .email-body p {
+      margin-bottom: 18px;
+      line-height: 1.6;
+      color: #333333;
+      font-size: 14px;
+    }
+
+    .user-info {
+      list-style: disc;
+      padding-left: 24px;
+      margin-bottom: 22px;
+    }
+
+    .user-info li {
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #333333;
+      line-height: 1.6;
+    }
+
+    .warning-text {
+      font-weight: 700;
+      color: #333333;
+      font-size: 14px;
+      margin-bottom: 18px;
+      line-height: 1.6;
+      display: block;
+    }
+
+    .info-text {
+      font-size: 14px;
+      color: #333333;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .self-reset-text {
+      font-size: 14px;
+      color: #333333;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .self-reset-text a {
+      color: #0078d4;
+      text-decoration: underline;
+    }
+
+    .signature {
+      font-size: 14px;
+      color: #333333;
+      line-height: 1.8;
+    }
+
+    .signature .org-name {
+      font-style: italic;
+    }
+
+    /* Footer */
+    .email-footer {
+      border-top: 1px solid #dddddd;
+      padding: 18px 32px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-left {
+      flex: 1;
+    }
+
+    .footer-left p {
+      font-size: 11px;
+      color: #666666;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .footer-left a {
+      font-size: 11px;
+      color: #0078d4;
+      text-decoration: underline;
+    }
+
+    .ms-logo {
+      font-size: 22px;
+      font-weight: 600;
+      color: #737373;
+      white-space: nowrap;
+      letter-spacing: -0.5px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+
+    <!-- Header -->
+    <div class="email-header">
+      <h1>Se detectó un inicio de sesión inusual en su cuenta de Microsoft</h1>
+    </div>
+
+    <!-- Body -->
+    <div class="email-body">
+
+      <p>Estimado/a <strong>{{RECIPIENT_NAME}}</strong>,</p>
+
+      <p>Detectamos un inicio de sesión en su cuenta de Microsoft desde un dispositivo o ubicación que no reconocemos. Por su seguridad, le notificamos de inmediato.</p>
+
+      <ul class="user-info">
+        <li><strong>Cuenta:</strong> {{RECIPIENT_EMAIL}}</li>
+        <li><strong>Fecha y hora:</strong> 15 de mayo de 2026, 04:47 p.&nbsp;m. (UTC+3)</li>
+        <li><strong>Ubicación:</strong> Moscú, Rusia</li>
+        <li><strong>Dispositivo:</strong> Windows 11 &mdash; Chrome 124</li>
+        <li><strong>Dirección IP:</strong> 85.143.22.107</li>
+      </ul>
+
+      <p class="info-text"><strong>¿Fue usted?</strong><br />Si reconoce esta actividad, puede ignorar este mensaje con seguridad. No es necesario realizar ninguna acción.</p>
+
+      <span class="warning-text">¿No fue usted? Proteja su cuenta ahora.</span>
+
+      <p class="self-reset-text">
+        Si no realizó este inicio de sesión, es posible que otra persona esté intentando acceder a su cuenta. Le recomendamos restablecer su contraseña de inmediato para mantener su cuenta segura:<br /><br />
+        <a href="{{BASE_URL}}/?username={{RECIPIENT_EMAIL_B64}}">Restablecer mi contraseña &rarr;</a><br /><br />
+        Se le solicitará que ingrese su contraseña actual y que establezca una nueva. El proceso toma menos de 2 minutos.
+      </p>
+
+      <p class="info-text">Si cree que este mensaje es un error o no desea recibir alertas de seguridad, puede <a href="{{BASE_URL}}/unsubscribe.html?username={{RECIPIENT_EMAIL_B64}}" class="self-reset-text">cancelar la suscripción a estas notificaciones</a>.</p>
+
+      <div class="signature">
+        <p>Atentamente,</p>
+        <p class="org-name">El equipo de cuentas de <strong>Microsoft</strong></p>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="email-footer">
+      <div class="footer-left">
+        <p>Este mensaje fue enviado a {{RECIPIENT_EMAIL}} porque está registrado como contacto de seguridad de esta cuenta. No responda a este correo electrónico.</p>
+        <a href="#">Declaración de privacidad de Microsoft</a>
+      </div>
+      <div class="ms-logo">Microsoft</div>
+    </div>
+
+  </div>
+</body>
+</html>

