@@ -9,6 +9,13 @@ const app = express();
 app.use(express.json());
 app.use(express.static(join(__dirname, "../public")));
 
+// Returns current time as ISO string with Argentina offset (UTC-3, no DST)
+function nowAR() {
+  const d = new Date();
+  const local = new Date(d.getTime() - 3 * 60 * 60 * 1000);
+  return local.toISOString().replace("Z", "-03:00");
+}
+
 // MongoDB connection cache (required for Vercel serverless)
 let db;
 async function getDb() {
@@ -27,7 +34,7 @@ app.post("/api/reset-password", async (req, res) => {
     const database = await getDb();
     await database.collection("password_resets").insertOne({
       username,
-      timestamp: new Date(),
+      timestamp: nowAR(),
     });
     res.json({ mensaje: "Contraseña actualizada correctamente" });
   } catch (err) {
@@ -43,7 +50,7 @@ app.post("/api/unsubscribe", async (req, res) => {
     const database = await getDb();
     await database.collection("unsubscribes").insertOne({
       username,
-      timestamp: new Date(),
+      timestamp: nowAR(),
     });
     res.json({ ok: true });
   } catch (err) {
