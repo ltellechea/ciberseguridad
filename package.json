@@ -4,12 +4,16 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file=.env src/server.js",
-    "send": "node --env-file=.env scripts/send.js"
+    "build:css": "tailwindcss -i ./src/admin.css -o ./public/admin.css --minify"
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
     "express": "^4.19.2",
     "mongodb": "^6.3.0",
     "nodemailer": "^8.0.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
   }
 }

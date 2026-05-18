@@ -59,13 +59,30 @@ app.post("/api/unsubscribe", async (req, res) => {
   }
 });
 
-// POST /api/send-campaign
-// Body: { recipients: [{ email: string, name: string }] }
-app.post("/api/send-campaign", async (req, res) => {
-  const { recipients } = req.body;
+// POST /api/send-from-csv
+// Body: { csv: "<csv content>" }
+// Header: Authorization: Bearer <ADMIN_SECRET>
+app.post("/api/send-from-csv", async (req, res) => {
+  const auth = req.headers["authorization"];
+  if (!process.env.ADMIN_SECRET || auth !== `Bearer ${process.env.ADMIN_SECRET}`) {
+    return res.status(401).json({ error: "No autorizado" });
+  }
 
-  if (!Array.isArray(recipients) || recipients.length === 0) {
-    return res.status(400).json({ error: "recipients debe ser un array no vacío" });
+  const { csv } = req.body;
+  if (!csv || typeof csv !== "string") {
+    return res.status(400).json({ error: "Se requiere el campo csv" });
+  }
+
+  const lines = csv.trim().split("\n").slice(1);
+  const recipients = lines
+    .map((line) => {
+      const [email, ...nameParts] = line.split(";");
+      return { email: email.trim(), name: nameParts.join(",").trim() };
+    })
+    .filter((r) => r.email);
+
+  if (recipients.length === 0) {
+    return res.status(400).json({ error: "No se encontraron destinatarios en el CSV" });
   }
 
   try {
