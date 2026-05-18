@@ -1,0 +1,137 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f5c6c6 0%, #e8d5e8 25%, #d0e8d8 60%, #c8ddd8 100%);
+}
+
+.footer {
+  position: fixed;
+  bottom: 16px;
+  right: 20px;
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #444;
+}
+
+.footer a { text-decoration: none; color: #444; }
+.footer a:hover { text-decoration: underline; }
+
+.card {
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 44px 44px 36px 44px;
+  width: 440px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.card h1 {
+  font-size: 23px;
+  font-weight: 600;
+  color: #1b1b1b;
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+
+.ms-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  width: 20px;
+  height: 20px;
+}
+
+.grid span { display: block; width: 11px; height: 11px; }
+.grid span:nth-child(1) { background: #f25022; }
+.grid span:nth-child(2) { background: #7fba00; }
+.grid span:nth-child(3) { background: #00a4ef; }
+.grid span:nth-child(4) { background: #ffb900; }
+
+.brand {
+  font-size: 21px;
+  color: #737373;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.account-display {
+  font-size: 13px;
+  color: #1b1b1b;
+  padding: 8px 10px;
+  background: #f2f2f2;
+  border-left: 3px solid #0067b8;
+  margin-bottom: 28px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 7px 20px;
+  border-radius: 0;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.1s;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: #e6e6e6;
+  color: #1b1b1b;
+  border-color: #e6e6e6;
+}
+
+.btn-secondary:hover { background: #d0d0d0; border-color: #d0d0d0; }
+
+.btn-primary {
+  background: #0067b8;
+  color: #fff;
+  border-color: #0067b8;
+}
+
+.btn-primary:hover { background: #005fa3; border-color: #005fa3; }
+
+.confirm-title {
+  font-size: 23px;
+  font-weight: 600;
+  color: #1b1b1b;
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+
+.confirm-text {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.confirm-account {
+  font-size: 13px;
+  color: #1b1b1b;
+  font-weight: 600;
+  margin-bottom: 28px;
+}

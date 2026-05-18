@@ -1,19 +1,26 @@
 {
   "name": "ciberseguridad",
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "start": "node --env-file=.env src/server.js",
-    "build:css": "tailwindcss -i ./src/admin.css -o ./public/admin.css --minify"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
-    "crypto-js": "^4.2.0",
-    "express": "^4.19.2",
     "mongodb": "^6.3.0",
-    "nodemailer": "^8.0.7"
+    "next": "^15.0.0",
+    "nodemailer": "^8.0.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.3.0",
-    "tailwindcss": "^4.3.0"
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^22.0.0",
+    "@types/nodemailer": "^6.4.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5.0.0"
   }
 }
