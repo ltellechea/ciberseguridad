@@ -15,28 +15,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/send-from-csv/route.js"
-    ],
-    "/unsubscribe/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/unsubscribe/page.css",
-      "static/chunks/app/unsubscribe/page.js"
-    ],
-    "/api/unsubscribe/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/unsubscribe/route.js"
-    ],
-    "/reset-password/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/reset-password/page.css",
-      "static/chunks/app/reset-password/page.js"
-    ],
-    "/api/reset-password/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/reset-password/route.js"
     ]
   }
 }
