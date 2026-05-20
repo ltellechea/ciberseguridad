@@ -1,6 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/campaign/page": "app/campaign/page.js",
-  "/reset-password/page": "app/reset-password/page.js",
-  "/unsubscribe/page": "app/unsubscribe/page.js"
-}
