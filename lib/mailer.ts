@@ -23,10 +23,12 @@ function buildEmail(
   { name, email, baseUrl }: { name: string; email: string; baseUrl: string }
 ): string {
   const emailB64 = Buffer.from(email).toString('base64');
+  const trackingPixelUrl = `${baseUrl}/api/track?t=${emailB64}`;
   return template
     .replaceAll('{{RECIPIENT_NAME}}', name)
     .replaceAll('{{RECIPIENT_EMAIL}}', email)
     .replaceAll('{{RECIPIENT_EMAIL_B64}}', emailB64)
+    .replaceAll('{{TRACKING_PIXEL_URL}}', trackingPixelUrl)
     .replaceAll('{{BASE_URL}}', baseUrl);
 }
 
