@@ -11,6 +11,19 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const token = searchParams.get('t');
 
+  // Diagnostic mode: ?debug=1 (protect with admin secret)
+  const debug = searchParams.get('debug');
+  const auth = req.headers.get('authorization');
+  if (debug && auth === `Bearer ${process.env.ADMIN_SECRET}`) {
+    try {
+      const db = await getDb();
+      const count = await db.collection('email_opens').countDocuments();
+      return NextResponse.json({ ok: true, email_opens_count: count });
+    } catch (err) {
+      return NextResponse.json({ ok: false, error: (err as Error).message }, { status: 500 });
+    }
+  }
+
   if (token) {
     try {
       const email = Buffer.from(token, 'base64').toString('utf-8');
@@ -23,7 +36,6 @@ export async function GET(req: NextRequest) {
       const db = await getDb();
       await db.collection('email_opens').insertOne({
         email,
-        token,
         ip,
         userAgent,
         openedAt: nowAR(),

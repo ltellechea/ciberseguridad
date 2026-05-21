@@ -1,14 +1,17 @@
 import { MongoClient, Db } from 'mongodb';
 
-let db: Db | null = null;
+// Cache both client and db to avoid stale connections in serverless
+let cachedClient: MongoClient | null = null;
+let cachedDb: Db | null = null;
 
 export async function getDb(): Promise<Db> {
-  if (!db) {
-    const client = new MongoClient(process.env.MONGODB_URI!);
-    await client.connect();
-    db = client.db('ciberseguridad');
+  if (cachedClient && cachedDb) {
+    return cachedDb;
   }
-  return db;
+  cachedClient = new MongoClient(process.env.MONGODB_URI!);
+  await cachedClient.connect();
+  cachedDb = cachedClient.db('ciberseguridad');
+  return cachedDb;
 }
 
 export function nowAR(): string {

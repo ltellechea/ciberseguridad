@@ -1,7 +1,7 @@
 import { getDb } from '@/lib/db';
 import { WithId, Document } from 'mongodb';
 import Link from 'next/link';
-import DashboardTabs, { Entry } from '@/app/components/DashboardTabs';
+import DashboardTabs, { Entry, OpenEntry } from '@/app/components/DashboardTabs';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,6 +10,18 @@ function toEntry(doc: WithId<Document>): Entry {
     _id: doc._id.toString(),
     username: doc.username as string,
     timestamp: doc.timestamp as string,
+    ip: doc.ip as string | undefined,
+    userAgent: doc.userAgent as string | undefined,
+  };
+}
+
+function toOpenEntry(doc: WithId<Document>): OpenEntry {
+  return {
+    _id: doc._id.toString(),
+    email: doc.email as string,
+    openedAt: doc.openedAt as string,
+    ip: (doc.ip as string) ?? 'unknown',
+    userAgent: (doc.userAgent as string) ?? 'unknown',
   };
 }
 
@@ -33,13 +45,15 @@ function StatCard({
 
 export default async function DashboardPage() {
   const db = await getDb();
-  const [resetDocs, unsubDocs] = await Promise.all([
+  const [resetDocs, unsubDocs, openDocs] = await Promise.all([
     db.collection('password_resets').find({}).sort({ timestamp: -1 }).toArray(),
     db.collection('unsubscribes').find({}).sort({ timestamp: -1 }).toArray(),
+    db.collection('email_opens').find({}).sort({ openedAt: -1 }).toArray(),
   ]);
 
   const passwordResets = resetDocs.map(toEntry);
   const unsubscribes = unsubDocs.map(toEntry);
+  const emailOpens = openDocs.map(toOpenEntry);
 
   return (
     <div className="min-h-screen bg-black">
@@ -72,7 +86,12 @@ export default async function DashboardPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-4 mb-8">
+          <StatCard
+            label="Emails abiertos"
+            value={emailOpens.length}
+            description="Usuarios que abrieron el email"
+          />
           <StatCard
             label="Resets de contraseña"
             value={passwordResets.length}
@@ -86,7 +105,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Tabbed table */}
-        <DashboardTabs passwordResets={passwordResets} unsubscribes={unsubscribes} />
+        <DashboardTabs passwordResets={passwordResets} unsubscribes={unsubscribes} emailOpens={emailOpens} />
       </main>
     </div>
   );
